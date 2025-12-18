@@ -30,101 +30,6 @@ The system uses a **layered architecture** where each layer adds specific transf
 
 Layers are combined into **stacks** - predefined configurations for common use cases like "business email" or "technical documentation."
 
-## Visual Architecture
-
-Generate a visual diagram of the stack architecture using AI:
-
-```bash
-./generate_visualization.py
-```
-
-This creates a diagram showing the flow from voice input through the 7 transformation layers to formatted output.
-
-**Requirements**: Set `REPLICATE_API_TOKEN` environment variable (get from [replicate.com](https://replicate.com/account/api-tokens))
-
----
-
-## Quick Start
-
-### Installation
-
-1. Clone this repository:
-```bash
-git clone <repository-url>
-cd Text-Transformation-Prompt-Stack
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-### Basic Usage
-
-1. **List available stacks**:
-```bash
-./concatenate.py --list
-```
-
-2. **Generate a prompt from a stack**:
-```bash
-./concatenate.py business-email.yaml
-```
-
-3. **Save to a file**:
-```bash
-./concatenate.py business-email.yaml -o prompt.txt
-```
-
-4. **Use the generated prompt with your LLM** along with your voice-to-text output.
-
-## Directory Structure
-
-```
-Text-Transformation-Prompt-Stack/
-├── layers/                    # Individual prompt layers
-│   ├── context/              # Foundational context
-│   │   ├── foundational.md
-│   │   └── personalisation.md
-│   ├── baseline/             # Basic text cleanup
-│   │   ├── fix-typos.md
-│   │   └── punctuation-and-paras.md
-│   ├── format/               # Output formats
-│   │   ├── email.md
-│   │   ├── todo-list.md
-│   │   ├── task-list.md
-│   │   ├── freeform-text.md
-│   │   └── documentation.md
-│   ├── tone/                 # Formality levels
-│   │   ├── maximum-formality.md
-│   │   ├── business-appropriate.md
-│   │   ├── minimum-formality.md
-│   │   └── informal-interpersonal.md
-│   ├── emotional/            # Emotional registers
-│   │   ├── heightened-emotion.md
-│   │   ├── neutral-emotion.md
-│   │   └── low-emotion.md
-│   ├── style/                # Style modifiers
-│   │   ├── concise.md
-│   │   ├── verbose.md
-│   │   ├── technical.md
-│   │   └── conversational.md
-│   └── readability/          # Reading levels
-│       ├── simple.md
-│       ├── intermediate.md
-│       └── advanced.md
-├── stacks/                    # Predefined stack configurations
-│   ├── business-email.yaml
-│   ├── formal-email.yaml
-│   ├── casual-note.yaml
-│   ├── technical-documentation.yaml
-│   ├── quick-todo.yaml
-│   └── task-list.yaml
-├── concatenate.py            # Stack concatenation script
-├── ARCHITECTURE.md           # Detailed architecture documentation
-└── README.md                 # This file
-```
-
 ## Example Stacks
 
 ### Business Email
@@ -231,27 +136,6 @@ prompt = concatenator.concatenate_from_file("business-email.yaml")
 # ... your LLM integration code here ...
 ```
 
-## CLI Reference
-
-```
-usage: concatenate.py [-h] [-o OUTPUT] [-s SEPARATOR] [-l] [-r REPO_ROOT] [stack]
-
-Concatenate text transformation prompt stack layers
-
-positional arguments:
-  stack                 Stack configuration file (from stacks/ directory or full path)
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -o OUTPUT, --output OUTPUT
-                        Output file (default: stdout)
-  -s SEPARATOR, --separator SEPARATOR
-                        Separator between layers (default: double newline)
-  -l, --list            List available stack configurations
-  -r REPO_ROOT, --repo-root REPO_ROOT
-                        Repository root directory (default: script directory)
-```
-
 ## Use Cases
 
 This system is particularly useful for:
@@ -271,23 +155,7 @@ This system is particularly useful for:
 4. **Submit to LLM** with your raw voice-to-text transcript
 5. **Receive formatted output** according to your stack specifications
 
-## Contributing
-
-Contributions are welcome! To add new layers or stacks:
-
-1. Follow the existing directory structure
-2. Keep layer instructions focused and compatible
-3. Test your additions with various combinations
-4. Update documentation accordingly
-
-## License
-
-[Add your license here]
 
 ## Author
 
 Daniel Rosehill
-
-## Related Projects
-
-- [Add links to your other text transformation projects here]
