@@ -1,5 +1,7 @@
 # Text Transformation Prompt Stack
 
+![alt text](images/1.png)
+
 A systematic, layered approach to transforming raw speech-to-text output into polished, formatted text using composable prompt instructions.
 
 ## Overview
