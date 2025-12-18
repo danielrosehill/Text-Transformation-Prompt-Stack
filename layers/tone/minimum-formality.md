@@ -1,0 +1,1 @@
+Apply minimum formality to the text, using casual and relaxed language.

@@ -1,0 +1,11 @@
+name: Task List
+description: Structured task list with clear action items
+layers:
+  - layers/context/foundational.md
+  - layers/baseline/fix-typos.md
+  - layers/baseline/punctuation-and-paras.md
+  - layers/format/task-list.md
+  - layers/tone/business-appropriate.md
+  - layers/emotional/neutral-emotion.md
+  - layers/style/concise.md
+  - layers/readability/intermediate.md

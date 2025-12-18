@@ -1,0 +1,12 @@
+name: Casual Note
+description: Friendly, informal text for personal communications
+layers:
+  - layers/context/foundational.md
+  - layers/context/personalisation.md
+  - layers/baseline/fix-typos.md
+  - layers/baseline/punctuation-and-paras.md
+  - layers/format/freeform-text.md
+  - layers/tone/informal-interpersonal.md
+  - layers/emotional/heightened-emotion.md
+  - layers/style/conversational.md
+  - layers/readability/simple.md

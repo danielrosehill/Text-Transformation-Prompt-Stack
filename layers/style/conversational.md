@@ -1,0 +1,1 @@
+Rewrite the text in a conversational, natural speaking style.

@@ -1,0 +1,12 @@
+name: Formal Email
+description: Highly formal email for official or ceremonial correspondence
+layers:
+  - layers/context/foundational.md
+  - layers/context/personalisation.md
+  - layers/baseline/fix-typos.md
+  - layers/baseline/punctuation-and-paras.md
+  - layers/format/email.md
+  - layers/tone/maximum-formality.md
+  - layers/emotional/low-emotion.md
+  - layers/style/verbose.md
+  - layers/readability/advanced.md

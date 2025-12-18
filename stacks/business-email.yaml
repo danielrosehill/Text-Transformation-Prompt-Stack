@@ -1,0 +1,12 @@
+name: Business Email
+description: Professional business email with appropriate formality and concise style
+layers:
+  - layers/context/foundational.md
+  - layers/context/personalisation.md
+  - layers/baseline/fix-typos.md
+  - layers/baseline/punctuation-and-paras.md
+  - layers/format/email.md
+  - layers/tone/business-appropriate.md
+  - layers/emotional/neutral-emotion.md
+  - layers/style/concise.md
+  - layers/readability/intermediate.md

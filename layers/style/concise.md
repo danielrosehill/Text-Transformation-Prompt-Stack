@@ -1,0 +1,1 @@
+Make the text concise by removing unnecessary words while preserving meaning.

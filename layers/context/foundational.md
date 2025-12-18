@@ -1,0 +1,1 @@
+The audio file provided in the prompt contains a voice recording provided by the user. Your task is to process it acccording to these formatting instructions in order to produce a text in the desired format and style.

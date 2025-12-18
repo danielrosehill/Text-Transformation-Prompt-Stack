@@ -1,0 +1,1 @@
+Adjust the text to an intermediate readability level suitable for educated readers.
