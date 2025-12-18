@@ -1,10 +1,20 @@
 ![alt text](images/1.png)
 
-A systematic, layered approach to transforming raw speech-to-text output into polished, formatted text using composable prompt instructions.
+ The purpose of this repository is to document and define in suggested layers a stack used to instruct audio multimodal models in the task of providing text in a desired end format. 
+ 
+ This approach was originally used - and can also be used - in a combined ASR and LLM approach - which involves creating an audio processing pipeline that uses both parts to transform user-uploaded audio into a desired output format (like a business email). 
+ 
+My current implementations, however, use audio multimodal/omni models to reduce this workflow to one step (audio and concatenated prompt in, formatted text out.)
 
-## Overview
+The purpose of this stack is to define layers through which text output instructions can be applied so as to ensure so as to provide a robust and replicable methodology for enforcing this workflow.
 
-This repository provides a methodology for taking raw ASR (Automatic Speech Recognition) output and progressively refining it through layered prompts to produce a wide variety of text formats. By composing different instruction layers, you can generate everything from formal business emails to casual notes, technical documentation to quick to-do lists.
+![alt text](images/2.png)
+
+The layering approach is desirable in my experience in order to define a baseline foundation for verbatim prompts transformations, and then to layer upon us in more specific stacks, like this:
+
+![alt text](images/3.png)
+
+The stacking approach is particularly powerful as it allows for extremely precise configurations to be created, simply through prompt concatenation logic.
 
 ## How It Works
 
@@ -115,7 +125,7 @@ Text-Transformation-Prompt-Stack/
 └── README.md                 # This file
 ```
 
-## Available Stacks
+## Example Stacks
 
 ### Business Email
 Professional business email with appropriate formality and concise style.
