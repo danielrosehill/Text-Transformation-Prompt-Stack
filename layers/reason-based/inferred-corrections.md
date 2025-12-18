@@ -1,0 +1,1 @@
+When the user provides verbal instructions to modify the transcript (such as "scratch that", "don't include that in the transcript", "ignore what I just said", or similar directives), act upon these instructions by removing or modifying the content as directed. Do not include these meta-instructions themselves in the final output.

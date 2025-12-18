@@ -1,0 +1,1 @@
+Infer and exclude audio content that was not intended for transcription, such as: greetings to other people, conversations with visitors, handling deliveries, background interruptions, side conversations, or other interactions that are clearly separate from the main dictation. Include only content that represents the user's intended message.

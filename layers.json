@@ -1,0 +1,204 @@
+{
+  "layers": [
+    {
+      "layer_number": 1,
+      "name": "Context Layer",
+      "description": "Foundational information about the input (voice/audio data) and user personalization",
+      "usage": "Always applied - both files in this layer are always included in every stack",
+      "elements": [
+        {
+          "name": "foundational",
+          "file_path": "layers/context/foundational.md",
+          "instruction": "The audio file provided in the prompt contains a voice recording provided by the user. Your task is to process it acccording to these formatting instructions in order to produce a text in the desired format and style."
+        },
+        {
+          "name": "personalisation",
+          "file_path": "layers/context/personalisation.md",
+          "instruction": "The user's name is Daniel"
+        }
+      ]
+    },
+    {
+      "layer_number": 2,
+      "name": "Baseline Layer",
+      "description": "Basic text cleanup (typos, punctuation, paragraphs)",
+      "usage": "Typically always applied - generally included in all stacks unless explicitly omitted",
+      "elements": [
+        {
+          "name": "fix-typos",
+          "file_path": "layers/baseline/fix-typos.md",
+          "instruction": "Fix typos and grammatical errors that you encounter in the text provided."
+        },
+        {
+          "name": "punctuation-and-paras",
+          "file_path": "layers/baseline/punctuation-and-paras.md",
+          "instruction": "Restore punctuation and add paragraph spacing."
+        }
+      ]
+    },
+    {
+      "layer_number": 3,
+      "name": "Reason-Based Layer",
+      "description": "Intelligent content filtering requiring inference (verbal corrections, unintended audio exclusion, repetition removal)",
+      "usage": "Optional, recommended - can include all files or select specific ones based on needs. These layers require the model to exercise judgment about user intent",
+      "elements": [
+        {
+          "name": "inferred-corrections",
+          "file_path": "layers/reason-based/inferred-corrections.md",
+          "instruction": "When the user provides verbal instructions to modify the transcript (such as \"scratch that\", \"don't include that in the transcript\", \"ignore what I just said\", or similar directives), act upon these instructions by removing or modifying the content as directed. Do not include these meta-instructions themselves in the final output."
+        },
+        {
+          "name": "non-transcribed-audio",
+          "file_path": "layers/reason-based/non-transcribed-audio.md",
+          "instruction": "Infer and exclude audio content that was not intended for transcription, such as: greetings to other people, conversations with visitors, handling deliveries, background interruptions, side conversations, or other interactions that are clearly separate from the main dictation. Include only content that represents the user's intended message."
+        },
+        {
+          "name": "repetition-avoidance",
+          "file_path": "layers/reason-based/repetition-avoidance.md",
+          "instruction": "Identify and remove redundant repetitions where the user expresses the same thought, idea, or instruction multiple times. If the user explicitly states they want to remove or not include something mentioned earlier, honor that instruction. Consolidate repeated concepts into a single, clear expression while preserving the user's intended meaning."
+        }
+      ]
+    },
+    {
+      "layer_number": 4,
+      "name": "Format Layer",
+      "description": "Output structure (email, documentation, to-do list, etc.)",
+      "usage": "Select one - choose exactly one format per stack",
+      "elements": [
+        {
+          "name": "email",
+          "file_path": "layers/format/email.md",
+          "instruction": "Format the text as a professional email with appropriate greeting and closing."
+        },
+        {
+          "name": "todo-list",
+          "file_path": "layers/format/todo-list.md",
+          "instruction": "Structure the text as a to-do list with actionable items."
+        },
+        {
+          "name": "task-list",
+          "file_path": "layers/format/task-list.md",
+          "instruction": "Convert the text into a structured task list with clear deliverables."
+        },
+        {
+          "name": "freeform-text",
+          "file_path": "layers/format/freeform-text.md",
+          "instruction": "Present the text as freeform prose without specific structural constraints."
+        },
+        {
+          "name": "documentation",
+          "file_path": "layers/format/documentation.md",
+          "instruction": "Format the text as technical documentation with clear sections and structure."
+        }
+      ]
+    },
+    {
+      "layer_number": 5,
+      "name": "Tone Layer",
+      "description": "Formality level (formal, business, casual, informal)",
+      "usage": "Select one - choose exactly one tone per stack",
+      "elements": [
+        {
+          "name": "maximum-formality",
+          "file_path": "layers/tone/maximum-formality.md",
+          "instruction": "Apply maximum formality to the text, using formal language and structure."
+        },
+        {
+          "name": "business-appropriate",
+          "file_path": "layers/tone/business-appropriate.md",
+          "instruction": "Ensure the tone is business-appropriate and professional."
+        },
+        {
+          "name": "minimum-formality",
+          "file_path": "layers/tone/minimum-formality.md",
+          "instruction": "Apply minimum formality to the text, using casual and relaxed language."
+        },
+        {
+          "name": "informal-interpersonal",
+          "file_path": "layers/tone/informal-interpersonal.md",
+          "instruction": "Use an informal tone suitable for interpersonal communication."
+        }
+      ]
+    },
+    {
+      "layer_number": 6,
+      "name": "Emotional Layer",
+      "description": "Emotional register (heightened, neutral, low)",
+      "usage": "Select one - choose exactly one emotional register per stack",
+      "elements": [
+        {
+          "name": "heightened-emotion",
+          "file_path": "layers/emotional/heightened-emotion.md",
+          "instruction": "Increase the emotional intensity and expressiveness of the text."
+        },
+        {
+          "name": "neutral-emotion",
+          "file_path": "layers/emotional/neutral-emotion.md",
+          "instruction": "Maintain neutral emotional tone throughout the text."
+        },
+        {
+          "name": "low-emotion",
+          "file_path": "layers/emotional/low-emotion.md",
+          "instruction": "Reduce emotional language and maintain a restrained tone."
+        }
+      ]
+    },
+    {
+      "layer_number": 7,
+      "name": "Style Layer",
+      "description": "Additional style modifiers (concise, verbose, technical, conversational)",
+      "usage": "Select one or more - can select multiple compatible style modifiers",
+      "elements": [
+        {
+          "name": "concise",
+          "file_path": "layers/style/concise.md",
+          "instruction": "Make the text concise by removing unnecessary words while preserving meaning."
+        },
+        {
+          "name": "verbose",
+          "file_path": "layers/style/verbose.md",
+          "instruction": "Expand the text with additional detail and explanation."
+        },
+        {
+          "name": "technical",
+          "file_path": "layers/style/technical.md",
+          "instruction": "Apply technical language and precise terminology appropriate to the subject."
+        },
+        {
+          "name": "conversational",
+          "file_path": "layers/style/conversational.md",
+          "instruction": "Rewrite the text in a conversational, natural speaking style."
+        }
+      ]
+    },
+    {
+      "layer_number": 8,
+      "name": "Readability Layer",
+      "description": "Complexity level (simple, intermediate, advanced)",
+      "usage": "Select one - choose exactly one readability level per stack",
+      "elements": [
+        {
+          "name": "simple",
+          "file_path": "layers/readability/simple.md",
+          "instruction": "Simplify the text for easy comprehension by general audiences."
+        },
+        {
+          "name": "intermediate",
+          "file_path": "layers/readability/intermediate.md",
+          "instruction": "Adjust the text to an intermediate readability level suitable for educated readers."
+        },
+        {
+          "name": "advanced",
+          "file_path": "layers/readability/advanced.md",
+          "instruction": "Increase complexity and sophistication for expert-level readers."
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "version": "1.0.0",
+    "description": "Text Transformation Prompt Stack - Structured data representation of transformation layers with numeric hierarchy",
+    "total_layers": 8,
+    "total_elements": 28
+  }
+}

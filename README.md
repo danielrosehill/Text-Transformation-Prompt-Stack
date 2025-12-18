@@ -22,13 +22,47 @@ The system uses a **layered architecture** where each layer adds specific transf
 
 1. **Context Layer**: Foundational information about the input (voice/audio data) and user personalization
 2. **Baseline Layer**: Basic text cleanup (typos, punctuation, paragraphs)
-3. **Format Layer**: Output structure (email, documentation, to-do list, etc.)
-4. **Tone Layer**: Formality level (formal, business, casual, informal)
-5. **Emotional Layer**: Emotional register (heightened, neutral, low)
-6. **Style Layer**: Additional style modifiers (concise, verbose, technical, conversational)
-7. **Readability Layer**: Complexity level (simple, intermediate, advanced)
+3. **Reason-Based Layer**: Intelligent content filtering requiring inference (verbal corrections, unintended audio exclusion, repetition removal)
+4. **Format Layer**: Output structure (email, documentation, to-do list, etc.)
+5. **Tone Layer**: Formality level (formal, business, casual, informal)
+6. **Emotional Layer**: Emotional register (heightened, neutral, low)
+7. **Style Layer**: Additional style modifiers (concise, verbose, technical, conversational)
+8. **Readability Layer**: Complexity level (simple, intermediate, advanced)
 
 Layers are combined into **stacks** - predefined configurations for common use cases like "business email" or "technical documentation."
+
+## Structured Layer Definition
+
+The complete transformation stack is defined in [`layers.json`](layers.json), which provides a structured data representation of all layers and their elements. This JSON file uses a **numeric hierarchy system** where the layer number represents the logical order of application:
+
+```json
+{
+  "layers": [
+    {
+      "layer_number": 1,
+      "name": "Context Layer",
+      "description": "Foundational information about the input...",
+      "usage": "Always applied - both files in this layer...",
+      "elements": [
+        {
+          "name": "foundational",
+          "file_path": "layers/context/foundational.md",
+          "instruction": "The audio file provided..."
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Key Features
+
+- **Numeric Hierarchy**: Layer numbers (1-8) represent the logical application order
+- **Complete Metadata**: Each layer includes name, description, usage guidelines, and all elements
+- **Element Details**: Each element contains its name, file path, and the actual instruction text
+- **Programmatic Access**: The JSON structure enables easy integration with custom tools and automation
+
+This structured representation is the **key novelty** of this repository, providing a machine-readable definition of the entire transformation stack that can be queried, analyzed, or extended programmatically.
 
 ## Example Stacks
 
