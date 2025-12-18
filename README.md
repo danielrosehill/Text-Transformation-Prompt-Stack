@@ -20,6 +20,20 @@ The system uses a **layered architecture** where each layer adds specific transf
 
 Layers are combined into **stacks** - predefined configurations for common use cases like "business email" or "technical documentation."
 
+## Visual Architecture
+
+Generate a visual diagram of the stack architecture using AI:
+
+```bash
+./generate_visualization.py
+```
+
+This creates a diagram showing the flow from voice input through the 7 transformation layers to formatted output.
+
+**Requirements**: Set `REPLICATE_API_TOKEN` environment variable (get from [replicate.com](https://replicate.com/account/api-tokens))
+
+---
+
 ## Quick Start
 
 ### Installation

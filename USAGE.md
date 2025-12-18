@@ -1,5 +1,33 @@
 # Quick Usage Guide
 
+## Generate Visual Architecture Diagram
+
+Create a visual representation of the stack architecture using AI image generation:
+
+```bash
+./generate_visualization.py
+```
+
+This will generate a diagram showing:
+- Voice input (microphone icon)
+- The 7 transformation layers (as stacked building blocks)
+- Formatted text output
+
+**Options:**
+```bash
+# Save to specific file
+./generate_visualization.py -o my_diagram.png
+
+# Use different Replicate model
+./generate_visualization.py -m "model-name"
+```
+
+**Requirements:**
+- Set your Replicate API token: `export REPLICATE_API_TOKEN="your-token-here"`
+- Get a token from: https://replicate.com/account/api-tokens
+
+---
+
 ## Common Commands
 
 ### List All Available Stacks

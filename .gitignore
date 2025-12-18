@@ -38,6 +38,9 @@ env/
 output/
 prompts/
 
+# Generated visualizations
+stack_visualization*.png
+
 # OS
 .DS_Store
 Thumbs.db
