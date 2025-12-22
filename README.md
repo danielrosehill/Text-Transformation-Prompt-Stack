@@ -31,6 +31,26 @@ The system uses a **layered architecture** where each layer adds specific transf
 
 Layers are combined into **stacks** - predefined configurations for common use cases like "business email" or "technical documentation."
 
+---
+
+## Foundational Transcript Cleanup Prompt
+
+The stack approach is useful both to generate concatenated prompts that provide specific text output adherence matching requirements for formatting, style, and even readability levels. 
+
+The more pragmatic day-to-day use for this approach is in concatenating a comprehensive cleanup prompt that defines a precise level of editing deemed generally desirable in cleaning up text transcripts, but which does not go too far when editing the text or removing content. The challenge in defining this general-purpose cleanup approach is one of prompt engineering. 
+
+If this prompt is too simplistic or understated, a lot of the potential value in audio multimodal is lost. 
+
+If this prompt is too extensive, the model is too aggressive in rewriting the user's prompt and the likelihood that desirable text will be edited out increases. It is a balancing act! 
+
+The general principle, however, is that the precise and unredacted replication of the user's speech is almost never desirable in speech-to-text or voice productivity workflows. 
+
+As a simple example, almost no transcript benefits from "ehm" being included. There are edge cases - such as where exact transcripts are required for legal reasons. But these uses are not the focus of most speech users' engagement. Nor is it what the stack is intended to support. 
+
+For this reason, the stack delineates between a foundational layer and a stylistic layer - this delineation being followed in the folder-based approach and the programmatic data definition that reflects it. 
+
+The stylistic layer includes not only definitions for various styles, but also format-specific adherence. The potential permutations for this logic of prompt concatenation are rather vast, so the examples captured here are partial by nature.
+
 ## Structured Layer Definition
 
 The complete transformation stack is defined in [`layers.json`](layers.json), which provides a structured data representation of all layers and their elements. This JSON file uses a **numeric hierarchy system** where the layer number represents the logical order of application:
