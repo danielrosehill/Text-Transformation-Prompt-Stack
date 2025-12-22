@@ -41,8 +41,12 @@ Located in `layers/stylistic/`, select appropriate layers based on output needs:
 ## Key Files
 
 - **`layers.json`** - Machine-readable definition of all layers with metadata
-- **`concatenate.py`** - Script to build prompts from stack YAML configs
-- **`generate-foundational.py`** - Generates the foundational prompt
+- **`scripts/`** - Python scripts for prompt generation and testing
+  - `concatenate.py` - Script to build prompts from stack YAML configs
+  - `generate-foundational.py` - Generates the foundational prompt
+  - `test-foundational.py` - Tests prompts against audio files
+  - `transcribe_gemini.py` - Basic Gemini transcription utility
+- **`generate-foundational.sh`** - Bash wrapper for generate-foundational.py
 - **`stacks/`** - Pre-built stack configurations (YAML files)
 - **`generated/`** - Output directory for constructed prompts
 - **`ref.md`** - API reference for target models (Gemini)
@@ -84,14 +88,13 @@ layers:
 ### Generating Prompts
 
 ```bash
-# Generate from stack config
-./concatenate.py business-email.yaml
+# Generate foundational prompt (via bash wrapper)
+./generate-foundational.sh
 
-# Generate foundational prompt only
-./generate-foundational.py
-
-# Test against audio
-./test-foundational.py
+# Or call Python scripts directly
+python3 scripts/generate-foundational.py
+python3 scripts/concatenate.py business-email.yaml
+python3 scripts/test-foundational.py
 ```
 
 ## Audio Preprocessing Notes
