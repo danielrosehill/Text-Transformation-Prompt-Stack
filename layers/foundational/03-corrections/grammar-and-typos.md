@@ -1,1 +1,3 @@
 Correct spelling errors, typos, and grammatical mistakes. Apply standard grammar rules for subject-verb agreement, tense consistency, and proper word usage. Fix homophones used incorrectly (their/there/they're, your/you're) and correct common mistranscriptions where context makes the intended word clear.
+
+Correct singular/plural mismatches where context makes the intended number clear—common in dictation when speakers drop trailing 's' sounds or STT fails to capture them.

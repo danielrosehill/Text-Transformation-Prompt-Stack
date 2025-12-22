@@ -1,204 +1,252 @@
 {
-  "layers": [
-    {
-      "layer_number": 1,
-      "name": "Context Layer",
-      "description": "Foundational information about the input (voice/audio data) and user personalization",
-      "usage": "Always applied - both files in this layer are always included in every stack",
-      "elements": [
-        {
-          "name": "foundational",
-          "file_path": "layers/context/foundational.md",
-          "instruction": "The audio file provided in the prompt contains a voice recording provided by the user. Your task is to process it acccording to these formatting instructions in order to produce a text in the desired format and style."
-        },
-        {
-          "name": "personalisation",
-          "file_path": "layers/context/personalisation.md",
-          "instruction": "The user's name is Daniel"
-        }
-      ]
-    },
-    {
-      "layer_number": 2,
-      "name": "Baseline Layer",
-      "description": "Basic text cleanup (typos, punctuation, paragraphs)",
-      "usage": "Typically always applied - generally included in all stacks unless explicitly omitted",
-      "elements": [
-        {
-          "name": "fix-typos",
-          "file_path": "layers/baseline/fix-typos.md",
-          "instruction": "Fix typos and grammatical errors that you encounter in the text provided."
-        },
-        {
-          "name": "punctuation-and-paras",
-          "file_path": "layers/baseline/punctuation-and-paras.md",
-          "instruction": "Restore punctuation and add paragraph spacing."
-        }
-      ]
-    },
-    {
-      "layer_number": 3,
-      "name": "Reason-Based Layer",
-      "description": "Intelligent content filtering requiring inference (verbal corrections, unintended audio exclusion, repetition removal)",
-      "usage": "Optional, recommended - can include all files or select specific ones based on needs. These layers require the model to exercise judgment about user intent",
-      "elements": [
-        {
-          "name": "inferred-corrections",
-          "file_path": "layers/reason-based/inferred-corrections.md",
-          "instruction": "When the user provides verbal instructions to modify the transcript (such as \"scratch that\", \"don't include that in the transcript\", \"ignore what I just said\", or similar directives), act upon these instructions by removing or modifying the content as directed. Do not include these meta-instructions themselves in the final output."
-        },
-        {
-          "name": "non-transcribed-audio",
-          "file_path": "layers/reason-based/non-transcribed-audio.md",
-          "instruction": "Infer and exclude audio content that was not intended for transcription, such as: greetings to other people, conversations with visitors, handling deliveries, background interruptions, side conversations, or other interactions that are clearly separate from the main dictation. Include only content that represents the user's intended message."
-        },
-        {
-          "name": "repetition-avoidance",
-          "file_path": "layers/reason-based/repetition-avoidance.md",
-          "instruction": "Identify and remove redundant repetitions where the user expresses the same thought, idea, or instruction multiple times. If the user explicitly states they want to remove or not include something mentioned earlier, honor that instruction. Consolidate repeated concepts into a single, clear expression while preserving the user's intended meaning."
-        }
-      ]
-    },
-    {
-      "layer_number": 4,
-      "name": "Format Layer",
-      "description": "Output structure (email, documentation, to-do list, etc.)",
-      "usage": "Select one - choose exactly one format per stack",
-      "elements": [
-        {
-          "name": "email",
-          "file_path": "layers/format/email.md",
-          "instruction": "Format the text as a professional email with appropriate greeting and closing."
-        },
-        {
-          "name": "todo-list",
-          "file_path": "layers/format/todo-list.md",
-          "instruction": "Structure the text as a to-do list with actionable items."
-        },
-        {
-          "name": "task-list",
-          "file_path": "layers/format/task-list.md",
-          "instruction": "Convert the text into a structured task list with clear deliverables."
-        },
-        {
-          "name": "freeform-text",
-          "file_path": "layers/format/freeform-text.md",
-          "instruction": "Present the text as freeform prose without specific structural constraints."
-        },
-        {
-          "name": "documentation",
-          "file_path": "layers/format/documentation.md",
-          "instruction": "Format the text as technical documentation with clear sections and structure."
-        }
-      ]
-    },
-    {
-      "layer_number": 5,
-      "name": "Tone Layer",
-      "description": "Formality level (formal, business, casual, informal)",
-      "usage": "Select one - choose exactly one tone per stack",
-      "elements": [
-        {
-          "name": "maximum-formality",
-          "file_path": "layers/tone/maximum-formality.md",
-          "instruction": "Apply maximum formality to the text, using formal language and structure."
-        },
-        {
-          "name": "business-appropriate",
-          "file_path": "layers/tone/business-appropriate.md",
-          "instruction": "Ensure the tone is business-appropriate and professional."
-        },
-        {
-          "name": "minimum-formality",
-          "file_path": "layers/tone/minimum-formality.md",
-          "instruction": "Apply minimum formality to the text, using casual and relaxed language."
-        },
-        {
-          "name": "informal-interpersonal",
-          "file_path": "layers/tone/informal-interpersonal.md",
-          "instruction": "Use an informal tone suitable for interpersonal communication."
-        }
-      ]
-    },
-    {
-      "layer_number": 6,
-      "name": "Emotional Layer",
-      "description": "Emotional register (heightened, neutral, low)",
-      "usage": "Select one - choose exactly one emotional register per stack",
-      "elements": [
-        {
-          "name": "heightened-emotion",
-          "file_path": "layers/emotional/heightened-emotion.md",
-          "instruction": "Increase the emotional intensity and expressiveness of the text."
-        },
-        {
-          "name": "neutral-emotion",
-          "file_path": "layers/emotional/neutral-emotion.md",
-          "instruction": "Maintain neutral emotional tone throughout the text."
-        },
-        {
-          "name": "low-emotion",
-          "file_path": "layers/emotional/low-emotion.md",
-          "instruction": "Reduce emotional language and maintain a restrained tone."
-        }
-      ]
-    },
-    {
-      "layer_number": 7,
-      "name": "Style Layer",
-      "description": "Additional style modifiers (concise, verbose, technical, conversational)",
-      "usage": "Select one or more - can select multiple compatible style modifiers",
-      "elements": [
-        {
-          "name": "concise",
-          "file_path": "layers/style/concise.md",
-          "instruction": "Make the text concise by removing unnecessary words while preserving meaning."
-        },
-        {
-          "name": "verbose",
-          "file_path": "layers/style/verbose.md",
-          "instruction": "Expand the text with additional detail and explanation."
-        },
-        {
-          "name": "technical",
-          "file_path": "layers/style/technical.md",
-          "instruction": "Apply technical language and precise terminology appropriate to the subject."
-        },
-        {
-          "name": "conversational",
-          "file_path": "layers/style/conversational.md",
-          "instruction": "Rewrite the text in a conversational, natural speaking style."
-        }
-      ]
-    },
-    {
-      "layer_number": 8,
-      "name": "Readability Layer",
-      "description": "Complexity level (simple, intermediate, advanced)",
-      "usage": "Select one - choose exactly one readability level per stack",
-      "elements": [
-        {
-          "name": "simple",
-          "file_path": "layers/readability/simple.md",
-          "instruction": "Simplify the text for easy comprehension by general audiences."
-        },
-        {
-          "name": "intermediate",
-          "file_path": "layers/readability/intermediate.md",
-          "instruction": "Adjust the text to an intermediate readability level suitable for educated readers."
-        },
-        {
-          "name": "advanced",
-          "file_path": "layers/readability/advanced.md",
-          "instruction": "Increase complexity and sophistication for expert-level readers."
-        }
-      ]
-    }
-  ],
   "meta": {
-    "version": "1.0.0",
-    "description": "Text Transformation Prompt Stack - Structured data representation of transformation layers with numeric hierarchy",
-    "total_layers": 8,
-    "total_elements": 28
+    "version": "2.0.0",
+    "description": "Text Transformation Prompt Stack - Two-stack architecture for intelligent audio transcription editing",
+    "architecture": {
+      "foundational": "Universal baseline corrections applied to all transcriptions. These layers represent editing that is almost always desirable.",
+      "stylistic": "Context-specific formatting and style adjustments. Select appropriate layers based on output requirements."
+    }
+  },
+  "foundational": {
+    "description": "Foundational layers are applied in order (01-05) and represent universally desirable transcription cleanup. These go beyond verbatim transcription to produce polished, publication-ready text.",
+    "usage": "Always applied as a complete stack. All layers work together to transform raw audio into clean text.",
+    "layers": [
+      {
+        "order": 1,
+        "folder": "01-context",
+        "name": "Context",
+        "description": "Establishes the transcription task and model role",
+        "elements": [
+          {
+            "name": "task-definition",
+            "file_path": "layers/foundational/01-context/task-definition.md",
+            "instruction": "You are an intelligent transcription editor. The user will provide an audio file containing dictated speech. Your task is to transform this audio into polished, publication-ready text—not a verbatim transcript. This is single-pass dictation processing: you receive audio and produce edited text directly. The speaker expects you to apply intelligent editing, removing the artifacts of natural speech while preserving their intended meaning. Your output should reflect what the speaker meant to communicate, not merely what sounds were produced. Natural speech contains false starts, filler words, self-corrections, and thinking pauses that serve no purpose in written text. Your role is to produce clean, readable prose that captures the speaker's intent. Output only the transformed text. Do not include preamble, commentary, or explanations about your edits. Do not wrap the output in quotes or code blocks. Simply return the edited text as if you were the speaker's professional transcriptionist."
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "folder": "02-exclusions",
+        "name": "Exclusions",
+        "description": "Content to exclude entirely from the transcription",
+        "elements": [
+          {
+            "name": "background-audio",
+            "file_path": "layers/foundational/02-exclusions/background-audio.md",
+            "instruction": "Infer and exclude audio content that was not intended for transcription, such as: greetings to other people, conversations with visitors, handling deliveries, background interruptions, side conversations, or other interactions that are clearly separate from the main dictation. Include only content that represents the user's intended message."
+          },
+          {
+            "name": "filler-words",
+            "file_path": "layers/foundational/02-exclusions/filler-words.md",
+            "instruction": "Remove filler words and verbal hesitations that add no meaning to the text. This includes: \"um\", \"uh\", \"er\", \"ah\", \"like\" (when used as filler), \"you know\", \"I mean\", \"basically\", \"actually\" (when used as filler), \"sort of\", \"kind of\" (when used as hedging rather than description), \"well\" (at sentence beginnings), and similar verbal padding. Preserve these words only when they carry semantic meaning in context."
+          },
+          {
+            "name": "repetitions",
+            "file_path": "layers/foundational/02-exclusions/repetitions.md",
+            "instruction": "Identify and remove redundant repetitions where the user expresses the same thought, idea, or instruction multiple times. If the user explicitly states they want to remove or not include something mentioned earlier, honor that instruction. Consolidate repeated concepts into a single, clear expression while preserving the user's intended meaning."
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "folder": "03-corrections",
+        "name": "Corrections",
+        "description": "Fixes and modifications to apply to remaining content",
+        "elements": [
+          {
+            "name": "meta-instructions",
+            "file_path": "layers/foundational/03-corrections/meta-instructions.md",
+            "instruction": "When the user provides verbal instructions to modify the transcript (such as \"scratch that\", \"don't include that in the transcript\", \"ignore what I just said\", or similar directives), act upon these instructions by removing or modifying the content as directed. Do not include these meta-instructions themselves in the final output."
+          },
+          {
+            "name": "spelling-clarifications",
+            "file_path": "layers/foundational/03-corrections/spelling-clarifications.md",
+            "instruction": "In the course of a dictation, the user might spell out a word in order to avoid a mistranscription for an infrequently encountered word. As an example, the user might say, \"We want to use Zod to resolve TypeScript errors in this project. Zod is spelled Z.O.D.\" If you encounter this in a transcript, do not include the spelling instruction. Simply ensure that the word is spelled as the user requested. In the above example, you would render: \"We want to use Zod to resolve Typescript errors in this project.\""
+          },
+          {
+            "name": "grammar-and-typos",
+            "file_path": "layers/foundational/03-corrections/grammar-and-typos.md",
+            "instruction": "Correct spelling errors, typos, and grammatical mistakes. Apply standard grammar rules for subject-verb agreement, tense consistency, and proper word usage. Fix homophones used incorrectly (their/there/they're, your/you're) and correct common mistranscriptions where context makes the intended word clear."
+          },
+          {
+            "name": "punctuation",
+            "file_path": "layers/foundational/03-corrections/punctuation.md",
+            "instruction": "Add appropriate punctuation including periods, commas, colons, semicolons, question marks, and quotation marks where contextually appropriate. Break text into logical paragraphs based on topic shifts and natural thought boundaries. Ensure sentences are properly capitalized."
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "folder": "04-inference",
+        "name": "Inference",
+        "description": "Smart inferences about intended output",
+        "elements": [
+          {
+            "name": "format-detection",
+            "file_path": "layers/foundational/04-inference/format-detection.md",
+            "instruction": "You may be able to infer that a transcript provided by the user was intended to be formatted in a specific and commonly used format, such as an email. If this is the case, you should ensure that the text provided conforms to the expected format."
+          }
+        ]
+      },
+      {
+        "order": 5,
+        "folder": "05-personalization",
+        "name": "Personalization",
+        "description": "User-specific details for template injection",
+        "elements": [
+          {
+            "name": "user-details",
+            "file_path": "layers/foundational/05-personalization/user-details.md",
+            "instruction": "The user's name is Daniel. The system prompt includes basic personalization elements such as the user's name and email address. These personalization elements are intended for injection where appropriate into templates. As an example, if the transcript could be formatted as an email, the user's name should be added as a signature. Add these elements where appropriate."
+          }
+        ]
+      }
+    ]
+  },
+  "stylistic": {
+    "description": "Stylistic layers customize output format, tone, and style. Select appropriate layers based on the desired output characteristics.",
+    "usage": "Select one from each category as needed. These layers are applied after the foundational stack.",
+    "layers": [
+      {
+        "order": 6,
+        "folder": "format-adherence",
+        "name": "Format Adherence",
+        "description": "Output structure and format",
+        "usage": "Select one - choose exactly one format per stack",
+        "elements": [
+          {
+            "name": "email",
+            "file_path": "layers/stylistic/format-adherence/email.md",
+            "instruction": "Format the text as a professional email with appropriate greeting and closing."
+          },
+          {
+            "name": "documentation",
+            "file_path": "layers/stylistic/format-adherence/documentation.md",
+            "instruction": "Format the text as technical documentation with clear sections and structure."
+          },
+          {
+            "name": "todo-list",
+            "file_path": "layers/stylistic/format-adherence/todo-list.md",
+            "instruction": "Structure the text as a to-do list with actionable items."
+          },
+          {
+            "name": "task-list",
+            "file_path": "layers/stylistic/format-adherence/task-list.md",
+            "instruction": "Convert the text into a structured task list with clear deliverables."
+          },
+          {
+            "name": "freeform-text",
+            "file_path": "layers/stylistic/format-adherence/freeform-text.md",
+            "instruction": "Present the text as freeform prose without specific structural constraints."
+          }
+        ]
+      },
+      {
+        "order": 7,
+        "folder": "tone",
+        "name": "Tone",
+        "description": "Formality level",
+        "usage": "Select one - choose exactly one tone per stack",
+        "elements": [
+          {
+            "name": "maximum-formality",
+            "file_path": "layers/stylistic/tone/maximum-formality.md",
+            "instruction": "Apply maximum formality to the text, using formal language and structure."
+          },
+          {
+            "name": "business-appropriate",
+            "file_path": "layers/stylistic/tone/business-appropriate.md",
+            "instruction": "Ensure the tone is business-appropriate and professional."
+          },
+          {
+            "name": "minimum-formality",
+            "file_path": "layers/stylistic/tone/minimum-formality.md",
+            "instruction": "Apply minimum formality to the text, using casual and relaxed language."
+          },
+          {
+            "name": "informal-interpersonal",
+            "file_path": "layers/stylistic/tone/informal-interpersonal.md",
+            "instruction": "Use an informal tone suitable for interpersonal communication."
+          }
+        ]
+      },
+      {
+        "order": 8,
+        "folder": "emotional",
+        "name": "Emotional",
+        "description": "Emotional register",
+        "usage": "Select one - choose exactly one emotional register per stack",
+        "elements": [
+          {
+            "name": "heightened-emotion",
+            "file_path": "layers/stylistic/emotional/heightened-emotion.md",
+            "instruction": "Increase the emotional intensity and expressiveness of the text."
+          },
+          {
+            "name": "neutral-emotion",
+            "file_path": "layers/stylistic/emotional/neutral-emotion.md",
+            "instruction": "Maintain neutral emotional tone throughout the text."
+          },
+          {
+            "name": "low-emotion",
+            "file_path": "layers/stylistic/emotional/low-emotion.md",
+            "instruction": "Reduce emotional language and maintain a restrained tone."
+          }
+        ]
+      },
+      {
+        "order": 9,
+        "folder": "writing-style",
+        "name": "Writing Style",
+        "description": "Style modifiers",
+        "usage": "Select one or more - can select multiple compatible style modifiers",
+        "elements": [
+          {
+            "name": "concise",
+            "file_path": "layers/stylistic/writing-style/concise.md",
+            "instruction": "Make the text concise by removing unnecessary words while preserving meaning."
+          },
+          {
+            "name": "verbose",
+            "file_path": "layers/stylistic/writing-style/verbose.md",
+            "instruction": "Expand the text with additional detail and explanation."
+          },
+          {
+            "name": "technical",
+            "file_path": "layers/stylistic/writing-style/technical.md",
+            "instruction": "Apply technical language and precise terminology appropriate to the subject."
+          },
+          {
+            "name": "conversational",
+            "file_path": "layers/stylistic/writing-style/conversational.md",
+            "instruction": "Rewrite the text in a conversational, natural speaking style."
+          }
+        ]
+      },
+      {
+        "order": 10,
+        "folder": "readability",
+        "name": "Readability",
+        "description": "Complexity level",
+        "usage": "Select one - choose exactly one readability level per stack",
+        "elements": [
+          {
+            "name": "simple",
+            "file_path": "layers/stylistic/readability/simple.md",
+            "instruction": "Simplify the text for easy comprehension by general audiences."
+          },
+          {
+            "name": "intermediate",
+            "file_path": "layers/stylistic/readability/intermediate.md",
+            "instruction": "Adjust the text to an intermediate readability level suitable for educated readers."
+          },
+          {
+            "name": "advanced",
+            "file_path": "layers/stylistic/readability/advanced.md",
+            "instruction": "Increase complexity and sophistication for expert-level readers."
+          }
+        ]
+      }
+    ]
   }
 }

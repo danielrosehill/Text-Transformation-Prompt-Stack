@@ -2,13 +2,68 @@
 
 ## V2 (Current)
 
-Changes from V1:
+Major architectural revision introducing the two-stack architecture.
+
+### Two-Stack Architecture
+
+The layer system is now split into two distinct stacks:
+
+- **Foundational Stack** (`layers/foundational/`) - Universal baseline corrections applied to all transcriptions
+- **Stylistic Stack** (`layers/stylistic/`) - Context-specific formatting and style adjustments
+
+### Foundational Stack Structure
+
+Reorganized into numbered subfolders showing application order:
+
+```
+layers/foundational/
+├── 01-context/
+│   └── task-definition.md
+├── 02-exclusions/
+│   ├── background-audio.md
+│   ├── filler-words.md
+│   └── repetitions.md
+├── 03-corrections/
+│   ├── meta-instructions.md
+│   ├── spelling-clarifications.md
+│   ├── grammar-and-typos.md
+│   └── punctuation.md
+├── 04-inference/
+│   └── format-detection.md
+└── 05-personalization/
+    └── user-details.md
+```
+
+### Stylistic Stack Structure
+
+Organized by category:
+
+```
+layers/stylistic/
+├── format-adherence/
+├── tone/
+├── emotional/
+├── writing-style/
+└── readability/
+```
 
 ### New Layers Added
 
-- **Inferred Format Adherence** (`inferred-format.md`) - Instructs the model to infer and maintain the intended output format from context
-- **Personalization Adherence** (`personalisation.md`) - Ensures personalization details are preserved during text transformation
-- **Spelling and Construction Resolution** (`spelling-resolution.md`) - Handles resolution of spelling variants and grammatical constructions
+- **Filler Words Removal** (`filler-words.md`) - Removes "um", "uh", "like", and other verbal hesitations
+- **Format Detection** (`format-detection.md`) - Infers intended output format from context
+- **Spelling Clarifications** (`spelling-clarifications.md`) - Handles spelled-out words in dictation
+
+### Layer Improvements
+
+- **Task Definition** - Enhanced context-setting with comprehensive instructions for single-pass dictation processing
+- **Grammar and Typos** - Expanded to include homophone correction and mistranscription handling
+- **Punctuation** - Added guidance for paragraph breaks and sentence capitalization
+
+### Structural Changes
+
+- `layers.json` updated to version 2.0.0 with foundational/stylistic split
+- File paths updated to reflect new folder structure
+- Layer numbering now reflects logical application order
 
 ## V1 (Archived)
 
