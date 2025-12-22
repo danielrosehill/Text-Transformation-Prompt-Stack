@@ -1,1 +1,1 @@
-Break text into logical paragraphs based on topic shifts and natural thought boundaries.
+Break text into short, focused paragraphs. Each paragraph should contain 2-4 sentences maximum. Create paragraph breaks at topic shifts, when introducing new ideas, or when the thought naturally concludes. Avoid long, dense paragraphs—favor readability and visual breathing room.

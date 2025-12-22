@@ -75,6 +75,10 @@
             "file_path": "layers/foundational/03-corrections/paragraphs.md"
           },
           {
+            "name": "subheadings",
+            "file_path": "layers/foundational/03-corrections/subheadings.md"
+          },
+          {
             "name": "capitalisation",
             "file_path": "layers/foundational/03-corrections/capitalisation.md"
           }

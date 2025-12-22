@@ -1,0 +1,1 @@
+Add descriptive subheadings to organize the text into logical sections. Use markdown heading format (## for main sections). Subheadings should summarize the content that follows and help readers navigate the document. Insert subheadings when the topic shifts significantly or when a new concept is introduced.
