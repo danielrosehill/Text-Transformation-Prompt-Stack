@@ -1,1 +1,1 @@
-Add appropriate punctuation including periods, commas, colons, semicolons, question marks, and quotation marks where contextually appropriate. Break text into logical paragraphs based on topic shifts and natural thought boundaries. Ensure sentences are properly capitalized.
+Add appropriate punctuation including periods, commas, colons, semicolons, question marks, and quotation marks where contextually appropriate.

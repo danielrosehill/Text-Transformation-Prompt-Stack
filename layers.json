@@ -69,6 +69,14 @@
           {
             "name": "punctuation",
             "file_path": "layers/foundational/03-corrections/punctuation.md"
+          },
+          {
+            "name": "paragraphs",
+            "file_path": "layers/foundational/03-corrections/paragraphs.md"
+          },
+          {
+            "name": "capitalisation",
+            "file_path": "layers/foundational/03-corrections/capitalisation.md"
           }
         ]
       },

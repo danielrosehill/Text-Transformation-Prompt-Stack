@@ -56,7 +56,15 @@ Correct singular/plural mismatches where context makes the intended number clear
 
 ## Punctuation
 
-Add appropriate punctuation including periods, commas, colons, semicolons, question marks, and quotation marks where contextually appropriate. Break text into logical paragraphs based on topic shifts and natural thought boundaries. Ensure sentences are properly capitalized.
+Add appropriate punctuation including periods, commas, colons, semicolons, question marks, and quotation marks where contextually appropriate.
+
+## Paragraphs
+
+Break text into logical paragraphs based on topic shifts and natural thought boundaries.
+
+## Capitalisation
+
+Ensure sentences are properly capitalized.
 
 ## Format Detection
 
