@@ -1,0 +1,1 @@
+Format the text as a professional email with appropriate greeting and closing.

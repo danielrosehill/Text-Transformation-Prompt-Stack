@@ -1,0 +1,1 @@
+Format the text as technical documentation with clear sections and structure.

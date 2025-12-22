@@ -1,0 +1,23 @@
+name: Foundational Stack
+description: |
+  Universal baseline corrections for audio transcription. These layers apply
+  to virtually all transcription use cases, performing intelligent editing
+  that goes beyond verbatim transcription. This stack removes filler words,
+  handles meta-instructions, excludes background conversations, and applies
+  basic text cleanup that no reasonable user would object to.
+version: "2.0"
+type: foundational
+layers:
+  # Context - Establishes the audio processing context
+  - layers/v2/context/foundational.md
+
+  # Baseline corrections - Universal text cleanup
+  - layers/v2/baseline/fix-typos.md
+  - layers/v2/baseline/punctuation-and-paras.md
+
+  # Reason-based intelligence - Contextual editing decisions
+  - layers/v2/reason-based/filler-removal.md
+  - layers/v2/reason-based/inferred-corrections.md
+  - layers/v2/reason-based/non-transcribed-audio.md
+  - layers/v2/reason-based/repetition-avoidance.md
+  - layers/v2/reason-based/spelling-resolution.md

@@ -1,0 +1,1 @@
+Expand the text with additional detail and explanation.

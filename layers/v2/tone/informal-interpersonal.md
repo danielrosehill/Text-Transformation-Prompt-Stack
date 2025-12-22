@@ -1,0 +1,1 @@
+Use an informal tone suitable for interpersonal communication.

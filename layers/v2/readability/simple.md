@@ -1,0 +1,1 @@
+Simplify the text for easy comprehension by general audiences.

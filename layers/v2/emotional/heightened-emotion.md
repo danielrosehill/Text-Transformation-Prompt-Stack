@@ -1,0 +1,1 @@
+Increase the emotional intensity and expressiveness of the text.

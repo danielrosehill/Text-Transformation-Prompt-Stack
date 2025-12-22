@@ -1,0 +1,1 @@
+Convert the text into a structured task list with clear deliverables.

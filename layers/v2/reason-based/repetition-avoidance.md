@@ -1,0 +1,1 @@
+Identify and remove redundant repetitions where the user expresses the same thought, idea, or instruction multiple times. If the user explicitly states they want to remove or not include something mentioned earlier, honor that instruction. Consolidate repeated concepts into a single, clear expression while preserving the user's intended meaning.
