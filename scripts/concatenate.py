@@ -24,7 +24,7 @@ class PromptStackConcatenator:
             repo_root: Path to repository root. If None, uses script directory.
         """
         if repo_root is None:
-            self.repo_root = Path(__file__).parent
+            self.repo_root = Path(__file__).parent.parent
         else:
             self.repo_root = Path(repo_root)
 

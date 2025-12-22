@@ -29,7 +29,7 @@ import google.generativeai as genai
 
 def load_api_key():
     """Load Gemini API key from .env file."""
-    env_path = Path(__file__).parent / ".env"
+    env_path = Path(__file__).parent.parent / ".env"
     if not env_path.exists():
         print("Error: .env file not found", file=sys.stderr)
         sys.exit(1)
@@ -46,9 +46,10 @@ def load_api_key():
 def get_foundational_prompt():
     """Generate the current foundational prompt."""
     script_dir = Path(__file__).parent
+    repo_root = script_dir.parent
     result = subprocess.run(
-        ['python', str(script_dir / 'generate-foundational.py'), '--stdout'],
-        capture_output=True, text=True, cwd=script_dir
+        ['python3', str(script_dir / 'generate-foundational.py'), '--stdout'],
+        capture_output=True, text=True, cwd=repo_root
     )
     if result.returncode != 0:
         print(f"Error generating foundational prompt: {result.stderr}", file=sys.stderr)
@@ -101,21 +102,21 @@ def transcribe(audio_path: Path, prompt: str) -> str:
 
 
 def main():
-    script_dir = Path(__file__).parent
+    repo_root = Path(__file__).parent.parent
 
     # Determine audio file path
     if len(sys.argv) > 1:
         audio_input = sys.argv[1]
         audio_path = Path(audio_input)
         if not audio_path.is_absolute():
-            # Check if it exists relative to script dir
-            if (script_dir / audio_input).exists():
-                audio_path = script_dir / audio_input
-            elif (script_dir / "planning" / audio_input).exists():
-                audio_path = script_dir / "planning" / audio_input
+            # Check if it exists relative to repo root
+            if (repo_root / audio_input).exists():
+                audio_path = repo_root / audio_input
+            elif (repo_root / "planning" / audio_input).exists():
+                audio_path = repo_root / "planning" / audio_input
     else:
         # Default to planning/note.mp3
-        audio_path = script_dir / "planning" / "note.mp3"
+        audio_path = repo_root / "planning" / "note.mp3"
 
     if not audio_path.exists():
         print(f"Error: Audio file not found: {audio_path}", file=sys.stderr)

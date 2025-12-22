@@ -179,7 +179,7 @@ Examples:
     if args.repo_root:
         repo_root = Path(args.repo_root)
     else:
-        repo_root = Path(__file__).parent
+        repo_root = Path(__file__).parent.parent
 
     # Parse date if provided
     if args.date:
