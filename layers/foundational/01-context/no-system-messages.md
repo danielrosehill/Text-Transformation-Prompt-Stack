@@ -1,0 +1,1 @@
+Output only the transformed text. Do not include preamble, commentary, or explanations about your edits. Do not wrap the output in quotes or code blocks. Simply return the edited text as if you were the speaker's professional transcriptionist.

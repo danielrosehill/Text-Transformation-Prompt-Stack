@@ -3,6 +3,7 @@
 Foundational Prompt Generator
 
 Generates the concatenated foundational cleanup prompt from layers.json.
+Reads content from markdown files referenced in the config.
 Outputs are version-controlled with date-stamped filenames (ddmmyy format).
 """
 
@@ -19,14 +20,22 @@ def load_layers_config(repo_root: Path) -> dict:
         return json.load(f)
 
 
-def extract_foundational_instructions(config: dict) -> list[tuple[str, str, str]]:
+def read_markdown_file(repo_root: Path, file_path: str) -> str:
+    """Read content from a markdown file."""
+    full_path = repo_root / file_path
+    if full_path.exists():
+        return full_path.read_text().strip()
+    return ""
+
+
+def extract_foundational_instructions(config: dict, repo_root: Path) -> list[tuple[str, str, str, bool]]:
     """
     Extract all foundational layer instructions in optimized order.
 
     Order: Context -> Personalization -> Exclusions -> Corrections -> Inference
 
     Returns:
-        List of tuples: (layer_name, element_name, instruction)
+        List of tuples: (layer_name, element_name, instruction, no_header)
     """
     instructions = []
 
@@ -54,9 +63,17 @@ def extract_foundational_instructions(config: dict) -> list[tuple[str, str, str]
 
         for element in elements:
             element_name = element.get("name", "unknown")
-            instruction = element.get("instruction", "")
+            file_path = element.get("file_path", "")
+            no_header = element.get("no_header", False)
+
+            # Read from file if file_path exists, otherwise fall back to instruction
+            if file_path:
+                instruction = read_markdown_file(repo_root, file_path)
+            else:
+                instruction = element.get("instruction", "")
+
             if instruction:
-                instructions.append((layer_name, element_name, instruction))
+                instructions.append((layer_name, element_name, instruction, no_header))
 
     return instructions
 
@@ -66,13 +83,13 @@ def format_element_name(element_name: str) -> str:
     return element_name.replace("-", " ").title()
 
 
-def generate_foundational_prompt(instructions: list[tuple[str, str, str]],
+def generate_foundational_prompt(instructions: list[tuple[str, str, str, bool]],
                                   include_headers: bool = True) -> str:
     """
     Generate the concatenated foundational prompt.
 
     Args:
-        instructions: List of (layer_name, element_name, instruction) tuples
+        instructions: List of (layer_name, element_name, instruction, no_header) tuples
         include_headers: If True, include section headers for each element (default: True)
 
     Returns:
@@ -81,14 +98,18 @@ def generate_foundational_prompt(instructions: list[tuple[str, str, str]],
     if include_headers:
         sections = []
 
-        for layer_name, element_name, instruction in instructions:
-            header = format_element_name(element_name)
-            sections.append(f"## {header}\n\n{instruction}")
+        for layer_name, element_name, instruction, no_header in instructions:
+            if no_header:
+                # No header for this element (e.g., task-definition)
+                sections.append(instruction)
+            else:
+                header = format_element_name(element_name)
+                sections.append(f"## {header}\n\n{instruction}")
 
         return "\n\n".join(sections)
     else:
         # Simple concatenation without headers
-        return "\n\n".join(instruction for _, _, instruction in instructions)
+        return "\n\n".join(instruction for _, _, instruction, _ in instructions)
 
 
 def get_output_filenames(date: datetime = None) -> tuple[str, str]:
@@ -181,7 +202,7 @@ Examples:
         sys.exit(1)
 
     # Extract and concatenate
-    instructions = extract_foundational_instructions(config)
+    instructions = extract_foundational_instructions(config, repo_root)
 
     if not instructions:
         print("Error: No foundational instructions found", file=sys.stderr)
