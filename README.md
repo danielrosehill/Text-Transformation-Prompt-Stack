@@ -2,195 +2,121 @@
 
 # Text Transformation Prompt Stack
 
-A modular system for constructing LLM prompts that transform raw audio transcriptions into polished, formatted text. Designed for **audio multimodal models** (e.g., Gemini series) that perform single-pass dictation processing—receiving audio directly and producing edited text that goes far beyond verbatim transcription.
+A modular system for constructing LLM prompts that transform raw audio into polished text. Designed for **audio multimodal models** (Gemini series) that perform single-pass dictation processing.
 
-## The Core Innovation
+## The Problem
 
-Traditional speech-to-text produces verbatim transcripts. Users must then manually edit out filler words, false starts, self-corrections, background interruptions, and add punctuation. This stack leverages multimodal LLMs to perform **intelligent transcription editing in a single pass**, producing text that reflects what the speaker *meant* to say, not merely what they said.
+Traditional speech-to-text produces verbatim transcripts. You get:
+
+> "Um, so like, I was thinking we should—no wait, scratch that—we should probably, um, meet on Tuesday"
+
+When what you meant was:
+
+> "We should meet on Tuesday."
+
+This stack leverages audio multimodal LLMs to produce text that reflects what you *meant* to say, not merely what you said.
 
 ![alt text](images/2.png)
 
-## Two-Stack Architecture
+## How It Works
 
-The system uses a **two-stack architecture** that separates universally desirable cleanup from context-specific formatting:
+The system concatenates instruction layers into comprehensive system prompts. Two stacks:
 
 ### Foundational Stack (Always Applied)
 
-The foundational stack contains editing instructions that are **universally desirable** for virtually all transcription use cases. These represent corrections that no reasonable user would want to see in their final text.
+Universal cleanup that's desirable for virtually all transcription:
 
-Located in `layers/foundational/`, these layers are applied in order:
-
-| Order | Folder | Purpose |
-|-------|--------|---------|
-| 01 | `01-context/` | Establishes the transcription task and model role |
-| 02 | `02-exclusions/` | Content to exclude (background audio, filler words, repetitions) |
-| 03 | `03-corrections/` | Fixes to apply (meta-instructions, spelling, grammar, punctuation) |
-| 04 | `04-inference/` | Smart format detection |
-| 05 | `05-personalization/` | User-specific details for templates |
-
-**The foundational premise:** There exists a baseline level of text cleanup that is almost always desirable. Outside of narrow use cases like court transcription, no user benefits from seeing "umm" written out or reading the same idea expressed three different ways.
-
-#### Design Principle: Maximum Specificity
-
-The foundational layers follow a principle of **maximum specificity**: every discrete editing instruction is captured as its own layer file. Even single-line instructions (e.g., "Ensure sentences are properly capitalized") exist as separate files rather than being combined with related instructions.
-
-This approach enables:
-- **Modular construction**: Include or exclude any individual instruction
-- **Fine-grained control**: Adjust exactly which editing rules apply
-- **Easy maintenance**: Update one instruction without touching others
-- **Transparent logic**: Each file represents one clear editing directive
-
-The generation script handles grouping and header decisions during prompt construction, but at the layer level, atomicity is prioritized.
+- **Context**: Establishes the transcription task
+- **Exclusions**: Background audio, filler words, repetitions
+- **Corrections**: Grammar, punctuation, spelling, paragraphs
+- **Inference**: Smart format detection
+- **Personalization**: User details for templates
 
 ### Stylistic Stack (Context-Specific)
 
-Built on top of the foundational stack, stylistic layers customize output for specific purposes:
+Customizes output format and tone:
 
-Located in `layers/stylistic/`:
-
-| Category | Purpose | Selection |
-|----------|---------|-----------|
-| `format-adherence/` | Output structure (email, docs, lists) | Select one |
-| `tone/` | Formality level | Select one |
-| `emotional/` | Emotional register | Select one |
-| `writing-style/` | Style modifiers | Select one or more |
-| `readability/` | Complexity level | Select one |
+- **Format**: Email, documentation, to-do list, freeform
+- **Tone**: Formal, business-appropriate, casual, informal
+- **Emotional**: Heightened, neutral, reserved
+- **Style**: Concise, verbose, technical, conversational
+- **Readability**: Simple, intermediate, advanced
 
 ![alt text](images/3.png)
 
-## Structured Layer Definition
+## Quick Start
 
-The complete transformation stack is defined in [`layers.json`](layers.json), which provides a machine-readable definition of all layers:
-
-```json
-{
-  "meta": {
-    "version": "2.0.0",
-    "architecture": {
-      "foundational": "Universal baseline corrections applied to all transcriptions",
-      "stylistic": "Context-specific formatting and style adjustments"
-    }
-  },
-  "foundational": {
-    "layers": [
-      {
-        "order": 1,
-        "folder": "01-context",
-        "name": "Context",
-        "elements": [...]
-      }
-    ]
-  },
-  "stylistic": {
-    "layers": [...]
-  }
-}
-```
-
-This structured representation enables programmatic access, querying, and extension of the transformation stack.
-
-## Example Stacks
-
-### Business Email
-Professional business email with appropriate formality and concise style.
 ```bash
+# List available stacks
+./concatenate.py --list
+
+# Generate a prompt
 ./concatenate.py business-email.yaml
+
+# Save to file
+./concatenate.py business-email.yaml -o prompt.txt
 ```
 
-### Formal Email
-Highly formal email for official or ceremonial correspondence.
-```bash
-./concatenate.py formal-email.yaml
-```
+## Pre-Built Stacks
 
-### Casual Note
-Friendly, informal text for personal communications.
-```bash
-./concatenate.py casual-note.yaml
-```
-
-### Technical Documentation
-Technical documentation with precise terminology and advanced readability.
-```bash
-./concatenate.py technical-documentation.yaml
-```
-
-### Quick To-Do
-Simple, actionable to-do list from voice notes.
-```bash
-./concatenate.py quick-todo.yaml
-```
+| Stack | Use Case |
+|-------|----------|
+| `business-email.yaml` | Professional emails |
+| `formal-email.yaml` | Official correspondence |
+| `casual-note.yaml` | Personal messages |
+| `technical-documentation.yaml` | Technical docs |
+| `quick-todo.yaml` | To-do lists from voice notes |
 
 ## Creating Custom Stacks
 
-Create your own stack configurations by creating a YAML file in the `stacks/` directory:
+Create a YAML file in `stacks/`:
 
 ```yaml
 name: My Custom Stack
-description: Description of what this stack does
+description: What this stack does
 layers:
-  # Foundational layers (always include)
+  # Foundational (always include all)
   - layers/foundational/01-context/task-definition.md
   - layers/foundational/02-exclusions/background-audio.md
   - layers/foundational/02-exclusions/filler-words.md
-  - layers/foundational/02-exclusions/repetitions.md
-  - layers/foundational/03-corrections/meta-instructions.md
-  - layers/foundational/03-corrections/spelling-clarifications.md
-  - layers/foundational/03-corrections/grammar-and-typos.md
-  - layers/foundational/03-corrections/punctuation.md
-  - layers/foundational/04-inference/format-detection.md
-  - layers/foundational/05-personalization/user-details.md
+  # ... rest of foundational
 
-  # Stylistic layers (select as needed)
+  # Stylistic (select as needed)
   - layers/stylistic/format-adherence/email.md
   - layers/stylistic/tone/business-appropriate.md
-  - layers/stylistic/emotional/neutral-emotion.md
   - layers/stylistic/writing-style/concise.md
-  - layers/stylistic/readability/intermediate.md
 ```
 
-### Stack Design Guidelines
+Then: `./concatenate.py my-stack.yaml`
 
-1. **Always include foundational layers**: The entire `layers/foundational/` stack should be included
-2. **Choose one format**: Select exactly one file from `format-adherence/`
-3. **Choose one tone**: Select exactly one file from `tone/`
-4. **Choose one emotional register**: Select exactly one file from `emotional/`
-5. **Add style modifiers as needed**: Include any relevant files from `writing-style/`
-6. **Choose one readability level**: Select exactly one file from `readability/`
+## Workflow
+
+1. Record voice note or provide audio file
+2. Select appropriate stack for your output format
+3. Generate concatenated prompt: `./concatenate.py stack.yaml`
+4. Submit to audio multimodal LLM with your audio
+5. Receive formatted output
 
 ## Programmatic Usage
 
 ```python
 from concatenate import PromptStackConcatenator
 
-# Initialize
 concatenator = PromptStackConcatenator()
-
-# List available stacks
-stacks = concatenator.list_available_stacks()
-
-# Generate a prompt
 prompt = concatenator.concatenate_from_file("business-email.yaml")
 
-# Use the prompt with your LLM
-# ... your LLM integration code here ...
+# Use with your LLM
+response = your_llm.complete(system=prompt, audio=audio_file)
 ```
 
-## Use Cases
+## Key Concept: Inferred Instructions
 
-- **Email composition** from voice notes
-- **Meeting notes** transformation into structured documents
-- **Technical documentation** generation from verbal explanations
-- **Task extraction** from brainstorming sessions
-- **Content creation** with consistent style and formatting
+The model reasons about content that should be excluded without explicit markup:
 
-## Typical Workflow
-
-1. **Record voice note** or provide audio file
-2. **Select appropriate stack** for your desired output format
-3. **Generate concatenated prompt** using this tool
-4. **Submit to audio multimodal LLM** with your audio file
-5. **Receive formatted output** according to your stack specifications
+- **Self-corrections**: Keeps only the corrected version
+- **Spelling instructions**: "Zod, spelled Z-O-D" becomes just "Zod"
+- **Meta-instructions**: "scratch that" removes preceding content
+- **Background noise**: Side conversations excluded automatically
 
 ## Author
 
