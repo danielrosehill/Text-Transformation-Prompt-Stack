@@ -30,6 +30,18 @@ Located in `layers/foundational/`, these layers are applied in order:
 
 **The foundational premise:** There exists a baseline level of text cleanup that is almost always desirable. Outside of narrow use cases like court transcription, no user benefits from seeing "umm" written out or reading the same idea expressed three different ways.
 
+#### Design Principle: Maximum Specificity
+
+The foundational layers follow a principle of **maximum specificity**: every discrete editing instruction is captured as its own layer file. Even single-line instructions (e.g., "Ensure sentences are properly capitalized") exist as separate files rather than being combined with related instructions.
+
+This approach enables:
+- **Modular construction**: Include or exclude any individual instruction
+- **Fine-grained control**: Adjust exactly which editing rules apply
+- **Easy maintenance**: Update one instruction without touching others
+- **Transparent logic**: Each file represents one clear editing directive
+
+The generation script handles grouping and header decisions during prompt construction, but at the layer level, atomicity is prioritized.
+
 ### Stylistic Stack (Context-Specific)
 
 Built on top of the foundational stack, stylistic layers customize output for specific purposes:
