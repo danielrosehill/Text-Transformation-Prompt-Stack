@@ -50,13 +50,16 @@ Customizes output format and tone:
 
 ```bash
 # List available stacks
-./concatenate.py --list
+python scripts/concatenate.py --list
 
 # Generate a prompt
-./concatenate.py business-email.yaml
+python scripts/concatenate.py business-email.yaml
 
 # Save to file
-./concatenate.py business-email.yaml -o prompt.txt
+python scripts/concatenate.py business-email.yaml -o prompt.txt
+
+# Generate the foundational prompt
+./scripts/generate-foundational.sh
 ```
 
 ## Pre-Built Stacks
@@ -89,23 +92,25 @@ layers:
   - layers/stylistic/writing-style/concise.md
 ```
 
-Then: `./concatenate.py my-stack.yaml`
+Then: `python scripts/concatenate.py my-stack.yaml`
 
 ## Workflow
 
 1. Record voice note or provide audio file
 2. Select appropriate stack for your output format
-3. Generate concatenated prompt: `./concatenate.py stack.yaml`
+3. Generate concatenated prompt: `python scripts/concatenate.py stack.yaml`
 4. Submit to audio multimodal LLM with your audio
 5. Receive formatted output
 
 ## Programmatic Usage
 
 ```python
+import sys
+sys.path.insert(0, 'scripts')
 from concatenate import PromptStackConcatenator
 
 concatenator = PromptStackConcatenator()
-prompt = concatenator.concatenate_from_file("business-email.yaml")
+prompt = concatenator.concatenate_from_file("stacks/business-email.yaml")
 
 # Use with your LLM
 response = your_llm.complete(system=prompt, audio=audio_file)
