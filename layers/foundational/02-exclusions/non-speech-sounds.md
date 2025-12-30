@@ -1,0 +1,1 @@
+Exclude non-speech sounds produced by the speaker that do not contribute to the content. This includes coughs, throat clearing, sneezes, sighs, yawns, audible breathing, lip smacking, and similar involuntary or incidental sounds. Do not note or describe these sounds in the transcript unless they are contextually relevant to the message being conveyed.

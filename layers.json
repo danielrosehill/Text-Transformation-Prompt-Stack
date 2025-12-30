@@ -45,6 +45,26 @@
           {
             "name": "repetitions",
             "file_path": "layers/foundational/02-exclusions/repetitions.md"
+          },
+          {
+            "name": "trailing-thoughts",
+            "file_path": "layers/foundational/02-exclusions/trailing-thoughts.md"
+          },
+          {
+            "name": "false-starts",
+            "file_path": "layers/foundational/02-exclusions/false-starts.md"
+          },
+          {
+            "name": "self-corrections",
+            "file_path": "layers/foundational/02-exclusions/self-corrections.md"
+          },
+          {
+            "name": "non-speech-sounds",
+            "file_path": "layers/foundational/02-exclusions/non-speech-sounds.md"
+          },
+          {
+            "name": "mic-checks",
+            "file_path": "layers/foundational/02-exclusions/mic-checks.md"
           }
         ]
       },

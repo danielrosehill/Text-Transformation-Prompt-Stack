@@ -1,0 +1,1 @@
+Exclude microphone checks, recording tests, and warm-up utterances that precede the actual dictation. This includes phrases like "testing, testing", "is this thing on", "can you hear me", "check, check", "one two three", and similar pre-recording content. Begin the transcript from where the intended dictation content starts.
