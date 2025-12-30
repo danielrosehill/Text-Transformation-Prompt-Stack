@@ -4,6 +4,8 @@
 
 A modular system for constructing LLM prompts that transform raw audio into polished text. Designed for **audio multimodal models** (Gemini series) that perform single-pass dictation processing.
 
+[![PDF Documentation](https://img.shields.io/badge/PDF-Foundational_Stack-red?logo=adobeacrobatreader)](exports/foundational-stack.pdf) — Complete documentation of the constructed foundational prompt stack
+
 ## The Problem
 
 Traditional speech-to-text produces verbatim transcripts. You get:
